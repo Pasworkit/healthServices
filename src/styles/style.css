@@ -1,0 +1,17 @@
+.header {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.header__logo {
+    width: 70px;
+}
+
+.none {
+    display: none;
+}
+
+.display {
+    display: flex;
+}

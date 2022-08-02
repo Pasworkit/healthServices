@@ -1,3 +1,7 @@
+import {getCookie} from "../utils/cookiehelpers.js";
+
+
+
 const instance = axios.create({
 	baseURL: 'https://ajax.test-danit.com/api/v2/cards',
 	headers: { 'Content-Type': 'application/json;charset=utf-8' },
