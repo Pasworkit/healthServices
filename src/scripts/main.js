@@ -14,11 +14,16 @@ btnLogin.addEventListener('click', () => {
         const passwordInput = document.querySelector(".password");
         const email = emailInput.value;
         const password = passwordInput.value;
-        login(email, password).then(() => {
-            modal.closeModal();
-            btnLogin.classList.add('none');
-            btnCreateVisit.classList.remove('none')
-        })
+        login(email, password).then((r) => {
+            if (r < 300) {
+                modal.closeModal();
+                btnLogin.classList.add('none');
+                btnCreateVisit.classList.remove('none');
+            } else {
+                document.querySelector('.label-mail').innerText = 'Неверный логин или пароль'
+            }
+
+        });
     })
 })
 
