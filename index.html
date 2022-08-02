@@ -1,37 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Medical Service</title>
-    <link rel="stylesheet" href="src/styles/reset.css"/>
-    <!-- Bootstrap Css -->
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
-            crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="src/styles/style.css"/>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Medical Service</title>
+		<link rel="stylesheet" href="src/styles/reset.css" />
+		<!-- Bootstrap Css -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="src/styles/style.css" />
 
-    <!-- Axios -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- Bootstrap JavaScript Bundle with Popper -->
-    <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-            crossorigin="anonymous"
-            defer
-    ></script>
-    <script type="module" src="src/scripts/main.js"></script>
-</head>
-<body>
-<header class="header">
-    <div>
-        <img class="header__logo" src="src/images/logo.png" alt="logo medical">
-    </div>
-    <button class="btn btn-primary btn-lg header__btn-login">Вход</button>
-    <button class="btn btn-primary btn-lg header__btn-createVisit none">Создать визит</button>
-</header>
-<h2 class="display-2 text-center">No items have been added</h2>
-</body>
+		<!-- Axios -->
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<!-- Bootstrap JavaScript Bundle with Popper -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+			crossorigin="anonymous"
+			defer
+		></script>
+		<script type="module" src="src/scripts/main.js"></script>
+	</head>
+	<body>
+		<header class="header">
+			<div>
+				<img
+					class="header__logo"
+					src="src/images/logo.png"
+					alt="logo medical"
+				/>
+			</div>
+			<button class="btn btn-primary btn-lg header__btn-login">Вход</button>
+			<button
+				class="btn btn-primary btn-lg header__btn-createVisit none"
+				type="button"
+				data-bs-toggle="modal"
+				data-bs-target="#createVisitModal"
+			>
+				Создать визит
+			</button>
+		</header>
+		<h2 class="display-2 text-center">No items have been added</h2>
+
+		<button
+			class="btn btn-primary btn-lg header__btn-createVisit"
+			type="button"
+			data-bs-toggle="modal"
+			data-bs-target="#createVisitModal"
+		>
+			Создать визит
+		</button>
+
+		<div
+			class="modal fade"
+			id="createVisitModal"
+			tabindex="-1"
+			aria-labelledby="createVisitModal"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="createVisitModalLabel">
+							Создать визит
+						</h5>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<div class="modal-body">
+						<form class="row">
+							<div class="col-4 mb-2">
+								<label for="doctorChoose" class="form-label">
+									Выберите врача
+								</label>
+								<select id="doctorChoose" class="form-select">
+									<option selected>Кардиолог</option>
+									<option>Стоматолог</option>
+									<option>Терапевт</option>
+								</select>
+							</div>
+							<div class="col-5 offset-3">
+								<label for="urgency" class="form-label">Срочность</label>
+								<select id="urgency" class="form-select">
+									<option selected>Обычная</option>
+									<option>Приоритетная</option>
+									<option>Неотложная</option>
+								</select>
+							</div>
+							<div class="mb-2">
+								<label for="visitPurpose" class="form-label">Цель визита</label>
+								<input type="text" class="form-control" id="visitPurpose" />
+							</div>
+							<div class="mb-2">
+								<label for="visitDescription" class="form-label">
+									Краткое описание визита
+								</label>
+								<textarea
+									class="form-control"
+									id="visitDescription"
+									rows="1"
+								></textarea>
+							</div>
+							<div class="mb-2">
+								<label for="fullName" class="form-label">ФИО</label>
+								<input type="text" class="form-control" id="fullName" />
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button
+							type="button"
+							class="btn btn-secondary"
+							data-bs-dismiss="modal"
+						>
+							Закрыть
+						</button>
+						<button type="button" class="btn btn-primary">Создать</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>
