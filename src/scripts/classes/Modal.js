@@ -1,82 +1,87 @@
 export default class Modal {
-    constructor() {
+	constructor() {
+		this.modalBackdrop = document.createElement('div');
+		this.modalFade = document.createElement('div');
+		this.modalDialog = document.createElement('div');
+		this.modalContent = document.createElement('div');
+		this.modalHeader = document.createElement('div');
+		this.modalTitle = document.createElement('h5');
+		this.modalHeaderCloseButton = document.createElement('button');
+		this.modalBody = document.createElement('div');
+		this.modalFooter = document.createElement('div');
+		this.modalCloseButton = document.createElement('button');
+		this.modalSubmitButton = document.createElement('button');
+	}
 
-        this.modal = document.createElement('div');
-        this.modalDialog = document.createElement('div');
-        this.modalContent = document.createElement('div');
-
-        this.modalHeader = document.createElement('div');
-        this.modalHeaderTitle = document.createElement('h5');
-        this.closeHeaderButton = document.createElement('button');
-        this.closeHeaderButton.addEventListener('click', this.closeModal.bind(this));
-
-        this.modalBody = document.createElement('div');
-        this.modalBodyForm = document.createElement('form');
-        this.modalBodyWrapperMail = document.createElement('div');
-        this.modalBodyLabelMail = document.createElement('label');
-        this.modalBodyInputMail = document.createElement('input');
-        this.modalBodyWrapperPassword = document.createElement('div');
-        this.modalBodyLabelPassword = document.createElement('label');
-        this.modalBodyInputPassword = document.createElement('input');
-
-        this.modalFooter = document.createElement('div');
-        this.closeButton = document.createElement('button');
-        this.closeButton.addEventListener('click', this.closeModal.bind(this));
-        this.sendButton = document.createElement('button');
-
-    }
-
-    closeModal() {
-        this.modal.remove();
-    }
+	closeModal() {
+		this.modalFade.remove();
+		this.modalBackdrop.remove();
+	}
 
 
-    createElements() {
-        this.modal.classList.add('modal','display');
-        this.modalDialog.classList.add('modal-dialog', 'modal-dialog-centered', 'w-100');
-        this.modalContent.classList.add('modal-content');
+	_createElements() {
+		this.modalBackdrop.className = "modal-backdrop fade show";
 
-        this.modalHeader.classList.add('modal-header');
-        this.modalHeaderTitle.classList.add('modal-title');
-        this.modalHeaderTitle.innerText = 'Ваши данные:'
-        this.closeHeaderButton.classList.add('close');
-        this.closeHeaderButton.setAttribute("type", 'button')
-        this.closeHeaderButton.insertAdjacentHTML("beforeend", `<span aria-hidden="true">&times;</span>`)
-        this.modal.append(this.modalDialog)
-        this.modalDialog.append(this.modalContent)
-        this.modalContent.append(this.modalHeader, this.modalBody)
-        this.modalHeader.append(this.modalHeaderTitle, this.closeHeaderButton);
+		//Modal fade
+		this.modalFade.className = "modal fade show display js-modal";
+		this.modalFade.id = "modal";
+		this.modalFade.tabIndex = -1;
+		this.modalFade.setAttribute("aria-labelledby", "modal");
+		this.modalFade.setAttribute("aria-modal", "true");
+		this.modalFade.setAttribute("role", "dialog");
 
-        this.modalBody.classList.add('modal-body');
-        this.modalBodyWrapperMail.classList.add('mb-3');
-        this.modalBodyLabelMail.classList.add('col-form-label', 'label-mail');
-        this.modalBodyLabelMail.innerText = 'Почта:'
-        this.modalBodyInputMail.classList.add('form-control', 'email');
-        this.modalBodyInputMail.setAttribute("type", 'email')
+		//Modal dialog
+		this.modalDialog.className = "modal-dialog w-100";
 
-        this.modalBodyWrapperPassword.classList.add('mb-3');
-        this.modalBodyLabelPassword.classList.add('col-form-label');
-        this.modalBodyLabelPassword.innerText = 'Пароль:'
-        this.modalBodyInputPassword.classList.add('form-control', 'password');
-        this.modalBodyInputPassword.setAttribute("type", 'password')
-        this.modalBody.append(this.modalBodyForm)
-        this.modalBodyForm.append(this.modalBodyWrapperMail, this.modalBodyWrapperPassword);
-        this.modalBodyWrapperMail.append(this.modalBodyLabelMail, this.modalBodyInputMail)
-        this.modalBodyWrapperPassword.append(this.modalBodyLabelPassword, this.modalBodyInputPassword)
+		//Modal content
+		this.modalContent.className = "modal-content";
 
+		//Modal header
+		this.modalHeader.className = "modal-header";
+		this.modalTitle.className = "modal-title";
+		this.modalTitle.id = "modalLabel";
+		this.modalTitle.innerText = "Модальное окно";
 
-        this.modalFooter.classList.add('modal-footer');
-        this.closeButton.classList.add('btn', 'btn-secondary');
-        this.closeButton.innerText = 'Закрыть';
-        this.sendButton.classList.add('btn', 'btn-primary', 'btn-registration');
-        this.sendButton.innerText = 'Войти'
-        this.modalBody.append(this.modalFooter)
-        this.modalFooter.append(this.closeButton, this.sendButton);
-    }
+		this.modalHeaderCloseButton.type = "button";
+		this.modalHeaderCloseButton.className = "btn-close";
+		this.modalHeaderCloseButton.ariaLabel = "Close";
 
-    render(selector = document.body) {
-        this.createElements();
-        selector.append(this.modal);
-    }
+		//Modal body
+		this.modalBody.className = "modal-body";
 
+		// Modal footer
+		this.modalFooter.className = "modal-footer";
+
+		this.modalCloseButton.className = "btn btn-secondary";
+		this.modalCloseButton.type = "button";
+		this.modalCloseButton.innerText = "Закрыть";
+		this.modalSubmitButton.className = "btn btn-primary";
+		this.modalSubmitButton.type = "button";
+		this.modalSubmitButton.innerText = "Подтвердить";
+
+		//Appends
+		this.modalFade.append(this.modalDialog);
+		this.modalDialog.append(this.modalContent);
+		this.modalContent.append(this.modalHeader, this.modalBody, this.modalFooter);
+		this.modalHeader.append(this.modalTitle, this.modalHeaderCloseButton);
+		this.modalFooter.append(this.modalCloseButton, this.modalSubmitButton);
+	}
+
+	_eventHandlers() {
+		this.modalFade.addEventListener('click', (e) => {
+			if (e.target.classList.contains('js-modal')) {
+				this.closeModal();
+			}
+		});
+
+		this.modalHeaderCloseButton.addEventListener('click', this.closeModal.bind(this));
+
+		this.modalCloseButton.addEventListener('click', this.closeModal.bind(this));
+	}
+
+	render(container = document.body) {
+		this._createElements();
+		this._eventHandlers();
+		container.append(this.modalFade, this.modalBackdrop);
+	}
 }
