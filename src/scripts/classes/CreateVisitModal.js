@@ -157,13 +157,16 @@ export default class CreateVisitModal extends Modal {
 		this.ageInput.required = true;
 
 		//Modal form - last visit
-		this.lastVisitContainer.className = "col-2 mb-2";
+		this.lastVisitContainer.className = "col-5 mb-2";
 		this.lastVisitContainer.innerHTML = `
 			<label for="lastVisit" class="form-label">Дата последнего визита</label>
 		`;
 
 		//Modal form - last visit input
-
+		this.lastVisitInput.id = "lastVisit";
+		this.lastVisitInput.className = "form-control";
+		this.lastVisitInput.type = "date";
+		this.lastVisitInput.required = true;
 
 		//Appends
 		this.modalBody.append(this.form);
@@ -182,6 +185,7 @@ export default class CreateVisitModal extends Modal {
 		this.bodyMassIndexContainer.append(this.bodyMassIndexInput);
 		this.cardiovascularDiseasesContainer.append(this.cardiovascularDiseasesContent);
 		this.ageContainer.append(this.ageInput);
+		this.lastVisitContainer.append(this.lastVisitInput);
 	}
 
 	#showAdditionalFields(doctor) {
@@ -199,7 +203,7 @@ export default class CreateVisitModal extends Modal {
 		}
 		if (doctor === "Терапевт") {
 			this.additionalFieldsContainer.innerHTML = "";
-
+			this.additionalFieldsContainer.append(this.ageContainer);
 		}
 
 		this.form.append(this.additionalFieldsContainer);
@@ -209,7 +213,6 @@ export default class CreateVisitModal extends Modal {
 		super._eventHandlers();
 
 		this.formChooseDoctorSelect.addEventListener('change', (e) => {
-			console.log(e.target.value);
 			this.#showAdditionalFields(e.target.value);
 		})
 
