@@ -18,26 +18,31 @@ export default class CreateVisitModal extends Modal {
 
 		//Additional fields
 		this.additionalFieldsContainer = document.createElement('div');
-		this.bloodPresureContainer = document.createElement('div');
-		this.bloodPresureInput = document.createElement('input');
-		this.bodyMassIndexContainer = document.createElement('div');
-		this.bodyMassIndexInput = document.createElement('input');
-		this.cardiovascularDiseasesContainer = document.createElement('div');
-		this.cardiovascularDiseasesContent = document.createElement('textarea');
-		this.ageContainer = document.createElement('div');
-		this.ageInput = document.createElement('input');
-		this.lastVisitContainer = document.createElement('div');
-		this.lastVisitInput = document.createElement('input');
+		this.formBloodPresureContainer = document.createElement('div');
+		this.formBloodPresureInput = document.createElement('input');
+		this.formBodyMassIndexContainer = document.createElement('div');
+		this.formBodyMassIndexInput = document.createElement('input');
+		this.formCardiovascularDiseasesContainer = document.createElement('div');
+		this.formCardiovascularDiseasesContent = document.createElement('textarea');
+		this.formAgeContainer = document.createElement('div');
+		this.formAgeInput = document.createElement('input');
+		this.formLastVisitContainer = document.createElement('div');
+		this.formLastVisitInput = document.createElement('input');
+
+
 	}
 
 	_createElements() {
 		super._createElements();
 
+		this.modalTitle.innerText = "Создать визит";
+		this.modalSubmitButton.innerText = "Создать";
+
 		//Modal form
 		this.form.className = "row";
 
 		//Modal form - choose doctor
-		this.formChooseDoctorContainer.className = "col-4 mb-2";
+		this.formChooseDoctorContainer.className = "col-5 mb-2";
 		this.formChooseDoctorContainer.innerHTML = `
 		<label for="doctorChoose" class="form-label">
 		Выберите врача
@@ -54,7 +59,7 @@ export default class CreateVisitModal extends Modal {
 		`;
 
 		//Modal form - choose urgency
-		this.formChooseUrgencyContainer.className = "col-5 offset-3 mb-2";
+		this.formChooseUrgencyContainer.className = "col-5 offset-2 mb-2";
 		this.formChooseUrgencyContainer.innerHTML = `
 			<label for="urgencyChoose" class="form-label">
 			Срочность
@@ -111,62 +116,67 @@ export default class CreateVisitModal extends Modal {
 		this.additionalFieldsContainer.className = "mb-2";
 
 		//Modal form - blood presure
-		this.bloodPresureContainer.className = "col-4 mb-2";
-		this.bloodPresureContainer.innerHTML = `
+		this.formBloodPresureContainer.className = "col-4 mb-2";
+		this.formBloodPresureContainer.innerHTML = `
 			<label for="bloodPresure" class="form-label">Обычное давление</label>
 		`;
 
 		//Modal form - blood presure input
-		this.bloodPresureInput.id = "bloodPresure";
-		this.bloodPresureInput.className = "form-control";
-		this.bloodPresureInput.type = "text";
-		this.bloodPresureInput.required = true;
+		this.formBloodPresureInput.id = "bloodPresure";
+		this.formBloodPresureInput.className = "form-control";
+		this.formBloodPresureInput.type = "text";
+		this.formBloodPresureInput.required = true;
+		this.formBloodPresureInput.placeholder = "120/80";
+		this.formBloodPresureInput.pattern = "[0-9]{2,3}\/[0-9]{2,3}";
 
 		//Modal form - body mass index
-		this.bodyMassIndexContainer.className = "col-4 mb-2";
-		this.bodyMassIndexContainer.innerHTML = `
+		this.formBodyMassIndexContainer.className = "col-4 mb-2";
+		this.formBodyMassIndexContainer.innerHTML = `
 			<label for="bodyMassIndex" class="form-label">Индекс массы тела</label>
 		`;
 
 		//Modal form - body mass index input
-		this.bodyMassIndexInput.id = "bodyMassIndex";
-		this.bodyMassIndexInput.className = "form-control";
-		this.bodyMassIndexInput.type = "text";
-		this.bodyMassIndexInput.required = true;
+		this.formBodyMassIndexInput.id = "bodyMassIndex";
+		this.formBodyMassIndexInput.className = "form-control";
+		this.formBodyMassIndexInput.type = "text";
+		this.formBodyMassIndexInput.required = true;
+		this.formBodyMassIndexInput.placeholder = "24";
+		this.formBodyMassIndexInput.pattern = "\\d{1,2}(\.\\d{1,2})?";
 
 		//Modal form - cardiovascular diseases
-		this.cardiovascularDiseasesContainer.className = "mb-2";
-		this.cardiovascularDiseasesContainer.innerHTML = `
+		this.formCardiovascularDiseasesContainer.className = "mb-2";
+		this.formCardiovascularDiseasesContainer.innerHTML = `
 			<label for="cardiovascularDiseases" class="form-label">Перенесенные заболевания сердечно-сосудистой системы</label>
 		`;
 
 		//Modal form - cardiovascular diseases input
-		this.cardiovascularDiseasesContent.id = "cardiovascularDiseases";
-		this.cardiovascularDiseasesContent.className = "form-control";
+		this.formCardiovascularDiseasesContent.id = "cardiovascularDiseases";
+		this.formCardiovascularDiseasesContent.className = "form-control";
 
 		//Modal form - age
-		this.ageContainer.className = "col-2 mb-2";
-		this.ageContainer.innerHTML = `
+		this.formAgeContainer.className = "col-2 mb-2";
+		this.formAgeContainer.innerHTML = `
 			<label for="age" class="form-label">Возраст</label>
 		`;
 
 		//Modal form - age input
-		this.ageInput.id = "age";
-		this.ageInput.className = "form-control";
-		this.ageInput.type = "text";
-		this.ageInput.required = true;
+		this.formAgeInput.id = "age";
+		this.formAgeInput.className = "form-control";
+		this.formAgeInput.type = "text";
+		this.formAgeInput.required = true;
+		this.formAgeInput.pattern = "([1-9][0-9]|[1-9])";
 
 		//Modal form - last visit
-		this.lastVisitContainer.className = "col-5 mb-2";
-		this.lastVisitContainer.innerHTML = `
+		this.formLastVisitContainer.className = "col-5 mb-2";
+		this.formLastVisitContainer.innerHTML = `
 			<label for="lastVisit" class="form-label">Дата последнего визита</label>
 		`;
 
 		//Modal form - last visit input
-		this.lastVisitInput.id = "lastVisit";
-		this.lastVisitInput.className = "form-control";
-		this.lastVisitInput.type = "date";
-		this.lastVisitInput.required = true;
+		this.formLastVisitInput.id = "lastVisit";
+		this.formLastVisitInput.className = "form-control";
+		this.formLastVisitInput.type = "date";
+		this.formLastVisitInput.required = true;
 
 		//Appends
 		this.modalBody.append(this.form);
@@ -181,31 +191,34 @@ export default class CreateVisitModal extends Modal {
 		this.formVisitPurposeContainer.append(this.formVisitPurposeInput);
 		this.formVisitDescriptionContainer.append(this.formVisitDescriptionContent);
 		this.formFullNameContainer.append(this.formFullNameInput);
-		this.bloodPresureContainer.append(this.bloodPresureInput);
-		this.bodyMassIndexContainer.append(this.bodyMassIndexInput);
-		this.cardiovascularDiseasesContainer.append(this.cardiovascularDiseasesContent);
-		this.ageContainer.append(this.ageInput);
-		this.lastVisitContainer.append(this.lastVisitInput);
+		this.formBloodPresureContainer.append(this.formBloodPresureInput);
+		this.formBodyMassIndexContainer.append(this.formBodyMassIndexInput);
+		this.formCardiovascularDiseasesContainer.append(this.formCardiovascularDiseasesContent);
+		this.formAgeContainer.append(this.formAgeInput);
+		this.formLastVisitContainer.append(this.formLastVisitInput);
+	}
+
+	async #sendVisit(body) {
+		console.log(body);
 	}
 
 	#showAdditionalFields(doctor) {
 		if (doctor === "Кардиолог") {
 			this.additionalFieldsContainer.innerHTML = "";
 			this.additionalFieldsContainer.append(
-				this.bloodPresureContainer,
-				this.bodyMassIndexContainer,
-				this.cardiovascularDiseasesContainer,
-				this.ageContainer);
+				this.formBloodPresureContainer,
+				this.formBodyMassIndexContainer,
+				this.formCardiovascularDiseasesContainer,
+				this.formAgeContainer);
 		}
 		if (doctor === "Стоматолог") {
 			this.additionalFieldsContainer.innerHTML = "";
-			this.additionalFieldsContainer.append(this.lastVisitContainer);
+			this.additionalFieldsContainer.append(this.formLastVisitContainer);
 		}
 		if (doctor === "Терапевт") {
 			this.additionalFieldsContainer.innerHTML = "";
-			this.additionalFieldsContainer.append(this.ageContainer);
+			this.additionalFieldsContainer.append(this.formAgeContainer);
 		}
-
 		this.form.append(this.additionalFieldsContainer);
 	}
 
@@ -217,12 +230,22 @@ export default class CreateVisitModal extends Modal {
 		})
 
 		this.modalSubmitButton.addEventListener('click', (e) => {
+			this.body = {
+				title: this.formVisitPurposeInput.value,
+				description: this.formVisitDescriptionContent.value || null,
+				doctor: this.formChooseDoctorSelect.selectedOptions[0].value,
+				urgency: this.formChooseUrgencySelect.selectedOptions[0].value,
+				fullName: this.formFullNameInput.value,
+			};
 			this.form.classList.add('was-validated');
+			if (this.form.checkValidity()) {
+				this.#sendVisit(this.body);
+			}
 		});
 	}
 
 	render() {
 		super.render();
-		this.#showAdditionalFields(this.formChooseDoctorSelect.selectedOptions[0].innerText);
+		this.#showAdditionalFields(this.formChooseDoctorSelect.selectedOptions[0].value);
 	}
 }
