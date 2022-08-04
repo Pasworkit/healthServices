@@ -1,3 +1,4 @@
+import instance from "../api/instance.js";
 import Modal from "./Modal.js";
 
 export default class CreateVisitModal extends Modal {
@@ -18,8 +19,8 @@ export default class CreateVisitModal extends Modal {
 
 		//Additional fields
 		this.additionalFieldsContainer = document.createElement('div');
-		this.formBloodPresureContainer = document.createElement('div');
-		this.formBloodPresureInput = document.createElement('input');
+		this.formBloodPressureContainer = document.createElement('div');
+		this.formBloodPressureInput = document.createElement('input');
 		this.formBodyMassIndexContainer = document.createElement('div');
 		this.formBodyMassIndexInput = document.createElement('input');
 		this.formCardiovascularDiseasesContainer = document.createElement('div');
@@ -116,18 +117,18 @@ export default class CreateVisitModal extends Modal {
 		this.additionalFieldsContainer.className = "mb-2";
 
 		//Modal form - blood presure
-		this.formBloodPresureContainer.className = "col-4 mb-2";
-		this.formBloodPresureContainer.innerHTML = `
+		this.formBloodPressureContainer.className = "col-4 mb-2";
+		this.formBloodPressureContainer.innerHTML = `
 			<label for="bloodPresure" class="form-label">Обычное давление</label>
 		`;
 
 		//Modal form - blood presure input
-		this.formBloodPresureInput.id = "bloodPresure";
-		this.formBloodPresureInput.className = "form-control";
-		this.formBloodPresureInput.type = "text";
-		this.formBloodPresureInput.required = true;
-		this.formBloodPresureInput.placeholder = "120/80";
-		this.formBloodPresureInput.pattern = "[0-9]{2,3}\/[0-9]{2,3}";
+		this.formBloodPressureInput.id = "bloodPresure";
+		this.formBloodPressureInput.className = "form-control";
+		this.formBloodPressureInput.type = "text";
+		this.formBloodPressureInput.required = true;
+		this.formBloodPressureInput.placeholder = "120/80";
+		this.formBloodPressureInput.pattern = "[0-9]{2,3}\/[0-9]{2,3}";
 
 		//Modal form - body mass index
 		this.formBodyMassIndexContainer.className = "col-4 mb-2";
@@ -191,22 +192,53 @@ export default class CreateVisitModal extends Modal {
 		this.formVisitPurposeContainer.append(this.formVisitPurposeInput);
 		this.formVisitDescriptionContainer.append(this.formVisitDescriptionContent);
 		this.formFullNameContainer.append(this.formFullNameInput);
-		this.formBloodPresureContainer.append(this.formBloodPresureInput);
+		this.formBloodPressureContainer.append(this.formBloodPressureInput);
 		this.formBodyMassIndexContainer.append(this.formBodyMassIndexInput);
 		this.formCardiovascularDiseasesContainer.append(this.formCardiovascularDiseasesContent);
 		this.formAgeContainer.append(this.formAgeInput);
 		this.formLastVisitContainer.append(this.formLastVisitInput);
 	}
 
-	async #sendVisit(body) {
-		console.log(body);
+	#createBody() {
+		this.selectedDoctor = this.formChooseDoctorSelect.selectedOptions[0].value;
+		this.data = {
+			title: this.formVisitPurposeInput.value,
+			description: this.formVisitDescriptionContent.value || null,
+			doctor: this.selectedDoctor,
+			urgency: this.formChooseUrgencySelect.selectedOptions[0].value,
+			fullName: this.formFullNameInput.value,
+		};
+
+		switch (this.selectedDoctor) {
+			case "Кардиолог": {
+				this.data.bloodPressure = this.formBloodPressureInput.value;
+				this.data.bodyMassIndex = this.formBodyMassIndexInput.value;
+				this.data.cardiovascularDiseases = this.formCardiovascularDiseasesContent.value || null;
+				this.data.age = this.formAgeInput.value;
+				break;
+			}
+			case "Стоматолог": {
+				this.data.lastVisit = this.formLastVisitInput.value;
+				break;
+			}
+			case "Терапевт": {
+				this.data.age = this.formAgeInput.value;
+				break;
+			}
+			default:
+				throw new Error("Параметры для доктора не указаны");
+		}
+
+		return this.data;
 	}
+
+	#sendVisit = (body) => instance.post('', body).catch(err => console.error(err));
 
 	#showAdditionalFields(doctor) {
 		if (doctor === "Кардиолог") {
 			this.additionalFieldsContainer.innerHTML = "";
 			this.additionalFieldsContainer.append(
-				this.formBloodPresureContainer,
+				this.formBloodPressureContainer,
 				this.formBodyMassIndexContainer,
 				this.formCardiovascularDiseasesContainer,
 				this.formAgeContainer);
@@ -230,16 +262,20 @@ export default class CreateVisitModal extends Modal {
 		})
 
 		this.modalSubmitButton.addEventListener('click', (e) => {
-			this.body = {
-				title: this.formVisitPurposeInput.value,
-				description: this.formVisitDescriptionContent.value || null,
-				doctor: this.formChooseDoctorSelect.selectedOptions[0].value,
-				urgency: this.formChooseUrgencySelect.selectedOptions[0].value,
-				fullName: this.formFullNameInput.value,
-			};
+			this.body = this.#createBody();
 			this.form.classList.add('was-validated');
 			if (this.form.checkValidity()) {
-				this.#sendVisit(this.body);
+				this.#sendVisit(this.body)
+					.then(({ status }) => {
+						if (status === 200) {
+							this.closeModal();
+						}
+						else {
+							alert("Упс... Что-то пошло не так!");
+							throw err;
+						}
+					})
+					.catch(err => console.error(err));
 			}
 		});
 	}
