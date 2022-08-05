@@ -265,6 +265,11 @@ export default class CreateVisitModal extends Modal {
 			this.body = this.#createBody();
 			this.form.classList.add('was-validated');
 			if (this.form.checkValidity()) {
+				this.modalSubmitButton.disabled = true;
+				this.modalSubmitButton.innerHTML = `
+							<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+							<span>Загрузка...</span>
+						`;
 				this.#sendVisit(this.body)
 					.then(({ status }) => {
 						if (status === 200) {
