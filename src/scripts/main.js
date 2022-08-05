@@ -1,5 +1,6 @@
 import LoginModal from "./classes/LoginModal.js";
 import login from "./api/login.js";
+import CreateVisitModal from "./classes/CreateVisitModal.js";
 
 const btnLogin = document.querySelector('.header__btn-login');
 const btnCreateVisit = document.querySelector('.header__btn-createVisit');
@@ -30,6 +31,10 @@ const btnCreateVisit = document.querySelector('.header__btn-createVisit');
             })
         })
     }
+    btnCreateVisit.addEventListener('click', () => {
+	new CreateVisitModal().render();
+})
+
 
 
 
