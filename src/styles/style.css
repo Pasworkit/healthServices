@@ -16,3 +16,11 @@
 .display {
     display: flex;
 }
+
+.cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    align-content: center;
+}

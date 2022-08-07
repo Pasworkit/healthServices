@@ -1,4 +1,5 @@
 import instance from "../api/instance.js";
+import Card from "./card.js";
 import Modal from "./Modal.js";
 
 export default class CreateVisitModal extends Modal {
@@ -274,6 +275,8 @@ export default class CreateVisitModal extends Modal {
 					.then(({ status }) => {
 						if (status === 200) {
 							this.closeModal();
+							console.log(this.body);
+							new Card(this.body).render(document.querySelector(".container-cards"));
 						}
 						else {
 							alert("Упс... Что-то пошло не так!");
