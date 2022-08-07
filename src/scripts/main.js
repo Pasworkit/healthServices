@@ -1,7 +1,7 @@
 import LoginModal from "./classes/LoginModal.js";
 import VisitModal from "./classes/VisitModal.js";
 import { toggleBtn } from "./functions/toggleBtn.js";
-
+import createVisit from "./api/createVisit.js";
 
 import { showCards } from "./functions/showCards.js";
 
@@ -18,15 +18,7 @@ if (document.cookie.includes('token')) {
 	})
 }
 btnCreateVisit.addEventListener('click', () => {
-	new VisitModal().render();
+	new VisitModal(createVisit).render();
 })
 
-showCards()
-
-
-
-
-
-
-
-
+showCards();

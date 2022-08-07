@@ -1,9 +1,7 @@
-import instance from "../api/instance.js";
-import Card from "./card.js";
 import Modal from "./Modal.js";
 
 export default class VisitModal extends Modal {
-	constructor() {
+	constructor(submitHandler) {
 		super();
 
 		this.form = document.createElement('form');
@@ -31,7 +29,8 @@ export default class VisitModal extends Modal {
 		this.formLastVisitContainer = document.createElement('div');
 		this.formLastVisitInput = document.createElement('input');
 
-
+		this.body = {};
+		this.submitHandler = submitHandler;
 	}
 
 	_createElements() {
@@ -233,8 +232,6 @@ export default class VisitModal extends Modal {
 		return this.data;
 	}
 
-	#sendVisit = (body) => instance.post('', body).catch(err => console.error(err));
-
 	#showAdditionalFields(doctor) {
 		if (doctor === "Кардиолог") {
 			this.additionalFieldsContainer.innerHTML = "";
@@ -271,19 +268,7 @@ export default class VisitModal extends Modal {
 							<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 							<span>Загрузка...</span>
 						`;
-				this.#sendVisit(this.body)
-					.then(({ status }) => {
-						if (status === 200) {
-							this.closeModal();
-							console.log(this.body);
-							new Card(this.body).render(document.querySelector(".container-cards"));
-						}
-						else {
-							alert("Упс... Что-то пошло не так!");
-							throw err;
-						}
-					})
-					.catch(err => console.error(err));
+				this.submitHandler(this);
 			}
 		});
 	}
