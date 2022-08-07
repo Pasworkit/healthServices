@@ -2,7 +2,7 @@ import instance from "../api/instance.js";
 import Card from "./card.js";
 import Modal from "./Modal.js";
 
-export default class CreateVisitModal extends Modal {
+export default class VisitModal extends Modal {
 	constructor() {
 		super();
 
