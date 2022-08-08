@@ -11,6 +11,6 @@ export const showCards = async () => {
     const containerCards = document.querySelector(".container-cards")
 
     cardsArray.forEach((el) => {
-            new Card( el ).render(containerCards);
+            new Card(el).render(containerCards);
     });
 }

@@ -1,5 +1,6 @@
 import deleteCards from "../api/deleteCards.js";
 import VisitModal from "./VisitModal.js";
+import editVisit from "../api/editVisit.js";
 
 export default class Card {
 	constructor({ fullName, doctor, title, description, urgency, id, cardiovascularDiseases, bloodPressure, bodyMassIndex, age, lastVisit }) {
@@ -14,6 +15,7 @@ export default class Card {
 		this.bodyMassIndex = bodyMassIndex;
 		this.age = age;
 		this.lastVisit = lastVisit;
+		this.cardElements = {};
 
 		this.card = document.createElement('div');
 		this.cardBody = document.createElement('div');
@@ -35,6 +37,20 @@ export default class Card {
 	}
 
 	_createElements() {
+		this.cardElements = {
+			fullName: this.fullName,
+			doctor: this.doctor,
+			title: this.title,
+			description: this.description,
+			urgency: this.urgency,
+			id: this.id,
+			cardiovascularDiseases: this.cardiovascularDiseases,
+			bloodPressure: this.bloodPressure,
+			bodyMassIndex: this.bodyMassIndex,
+			age: this.age,
+			lastVisit: this.lastVisit,
+		}
+
 		this.card.className = `card m-2 p-3 mb-2 bg-light text-dark card-${this.id}`;
 		this.card.style.width = "40rem";
 		this.cardBody.className = "card-body p-0";
@@ -63,7 +79,6 @@ export default class Card {
 		this.cardLastVisit.className = "card-text";
 		this.cardLastVisit.innerHTML = `Последний визит: ${this.lastVisit}`;
 
-
 		this.cardButtonAddInformation.className = "btn btn-outline-info";
 		this.cardButtonAddInformation.type = "button";
 		this.cardButtonAddInformation.innerHTML = "Показать больше";
@@ -74,6 +89,7 @@ export default class Card {
 		this.cardAdditionalInformation.href = "#";
 		this.cardAdditionalInformation.innerHTML = "Редактировать";
 		this.card.append(this.cardBody);
+		
 		this.cardBody.append(
 			this.buttonClose,
 			this.cardFullName,
@@ -111,15 +127,17 @@ export default class Card {
 			this.cardButtonHideInformation.classList.remove("d-none");
 			this.containerAddInformation.classList.remove("d-none");
 		})
+
 		this.cardButtonHideInformation.addEventListener('click', () => {
 			this.cardButtonAddInformation.classList.remove("d-none");
 			this.cardButtonHideInformation.classList.add("d-none");
 			this.containerAddInformation.classList.add("d-none");
 		})
+
 		this.buttonClose.addEventListener('click', () => deleteCards(this.id));
 
 		this.cardAdditionalInformation.addEventListener('click', () => {
-			new VisitModal().render();
+			new VisitModal(editVisit, "edit", this.cardElements).render();
 		})
 
 	}

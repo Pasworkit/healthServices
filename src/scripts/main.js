@@ -18,7 +18,7 @@ if (document.cookie.includes('token')) {
 	})
 }
 btnCreateVisit.addEventListener('click', () => {
-	new VisitModal(createVisit).render();
+	new VisitModal(createVisit, "create").render();
 })
 
 showCards();
