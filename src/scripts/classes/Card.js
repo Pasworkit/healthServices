@@ -51,8 +51,8 @@ export default class Card {
 			lastVisit: this.lastVisit,
 		}
 
-		this.card.className = `card m-2 p-3 mb-2 bg-light text-dark card-${this.id}`;
-		this.card.style.width = "40rem";
+		this.card.className = `cards__card card border border-3 m-2 p-3 mb-2 text-dark card-${this.id}`;
+		this.card.style.width = "21rem";
 		this.cardBody.className = "card-body p-0";
 		this.buttonClose.type = "button";
 		this.buttonClose.className = "btn-close position-absolute top-0 end-0";
@@ -79,13 +79,13 @@ export default class Card {
 		this.cardLastVisit.className = "card-text";
 		this.cardLastVisit.innerHTML = `Последний визит: ${this.lastVisit}`;
 
-		this.cardButtonAddInformation.className = "btn btn-outline-info";
+		this.cardButtonAddInformation.className = "btn btn-light";
 		this.cardButtonAddInformation.type = "button";
 		this.cardButtonAddInformation.innerHTML = "Показать больше";
-		this.cardButtonHideInformation.className = "btn btn-outline-info d-none";
+		this.cardButtonHideInformation.className = "btn btn-light d-none";
 		this.cardButtonHideInformation.type = "button";
 		this.cardButtonHideInformation.innerHTML = "Показать меньше";
-		this.cardAdditionalInformation.className = "btn btn-primary ms-3";
+		this.cardAdditionalInformation.className = "btn btn-primary ms-1";
 		this.cardAdditionalInformation.href = "#";
 		this.cardAdditionalInformation.innerHTML = "Редактировать";
 		this.card.append(this.cardBody);
@@ -144,6 +144,6 @@ export default class Card {
 
 	render(container = document.body) {
 		this._createElements();
-		container.append(this.card);
+		container.prepend(this.card);
 	}
 }

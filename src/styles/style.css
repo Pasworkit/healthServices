@@ -1,3 +1,14 @@
+body {
+    background-image: url("https://media.dyvys.info/2021/09/e21eb616cdaf4d67a806b7e4113b99cc.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+    margin: 0 auto;
+    width: 100%;
+}
+
+
+
 .header {
     display: flex;
     justify-content: space-around;
@@ -19,8 +30,11 @@
 
 .cards {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
-    flex-direction: column-reverse;
     align-content: center;
+}
+
+.cards__card {
+    background: rgba(174, 232, 233, 0.9);
+    border-color: rgba(43, 75, 219, 0.9) !important;
 }
