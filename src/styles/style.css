@@ -36,4 +36,5 @@ body {
 
 .cards__card {
     background: rgba(174, 232, 233, 0.9);
+    border-color: rgba(43, 75, 219, 0.9) !important;
 }
