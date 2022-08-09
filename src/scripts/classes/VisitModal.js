@@ -361,9 +361,6 @@ export default class VisitModal extends Modal {
 		this.form.append(this.additionalFieldsContainer);
 	}
 
-	// #checkDate = () => {
-	// 	const inputDate = new Date(this.formLastVisitInput.value);
-	// }
 	#getFormattedTodayDate = () => {
 		const date = new Date();
 		const month = date.getMonth() > 10 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
@@ -382,7 +379,6 @@ export default class VisitModal extends Modal {
 		this.modalSubmitButton.addEventListener('click', (e) => {
 			this.body = this.#createBody();
 			this.form.classList.add('was-validated');
-			// this.#checkDate();
 			if (this.form.checkValidity()) {
 				this.modalSubmitButton.disabled = true;
 				this.modalSubmitButton.innerHTML = `
