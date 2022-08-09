@@ -1,40 +1,44 @@
 body {
-    background-image: url("https://media.dyvys.info/2021/09/e21eb616cdaf4d67a806b7e4113b99cc.jpg");
+	background-image: url("https://media.dyvys.info/2021/09/e21eb616cdaf4d67a806b7e4113b99cc.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-attachment: fixed;
-    margin: 0 auto;
-    width: 100%;
+	margin: 0 auto;
+	width: 100%;
 }
 
 
 
 .header {
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
-    border: black solid 1px;
+	display: flex;
+	justify-content: space-around;
+	padding: 20px;
+	border: black solid 1px;
 }
 
 .header__logo {
-    width: 70px;
+	width: 70px;
 }
 
 .none {
-    display: none;
+	display: none;
 }
 
 .display {
-    display: flex;
+	display: flex;
 }
 
 .cards {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: center;
 }
 
 .cards__card {
-    background: rgba(174, 232, 233, 0.9);
-    border-color: rgba(43, 75, 219, 0.9) !important;
+	background: rgba(174, 232, 233, 0.9);
+	border-color: rgba(43, 75, 219, 0.9) !important;
+}
+
+.cards__card--over {
+	border: 3px dotted rgba(43, 75, 219, 0.9) !important;
 }
