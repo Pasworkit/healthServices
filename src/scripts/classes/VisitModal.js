@@ -272,6 +272,8 @@ export default class VisitModal extends Modal {
 		this.formLastVisitInput.className = "form-control";
 		this.formLastVisitInput.type = "date";
 		this.formLastVisitInput.required = true;
+		this.formLastVisitInput.max = `${this.#getFormattedTodayDate()}`;
+
 		if (this.flag === "edit") {
 			this.formLastVisitInput.value = this.lastVisit;
 		}
@@ -359,6 +361,17 @@ export default class VisitModal extends Modal {
 		this.form.append(this.additionalFieldsContainer);
 	}
 
+	// #checkDate = () => {
+	// 	const inputDate = new Date(this.formLastVisitInput.value);
+	// }
+	#getFormattedTodayDate = () => {
+		const date = new Date();
+		const month = date.getMonth() > 10 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
+		const day = date.getDate() > 10 ? date.getDate() : `0${date.getDate()}`;
+
+		return `${date.getFullYear()}-${month}-${day}`;
+	}
+
 	_eventHandlers() {
 		super._eventHandlers();
 
@@ -369,6 +382,7 @@ export default class VisitModal extends Modal {
 		this.modalSubmitButton.addEventListener('click', (e) => {
 			this.body = this.#createBody();
 			this.form.classList.add('was-validated');
+			// this.#checkDate();
 			if (this.form.checkValidity()) {
 				this.modalSubmitButton.disabled = true;
 				this.modalSubmitButton.innerHTML = `
