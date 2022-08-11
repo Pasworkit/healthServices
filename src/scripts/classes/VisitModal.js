@@ -39,6 +39,8 @@ export default class VisitModal extends Modal {
 		this.formLastVisitContainer = document.createElement('div');
 		this.formLastVisitInput = document.createElement('input');
 
+		this.requiredFieldsHint = document.createElement('span');
+
 		this.body = {};
 		this.submitHandler = submitHandler;
 		this.flag = flag;
@@ -152,7 +154,7 @@ export default class VisitModal extends Modal {
 		//Modal form - visit purpose
 		this.formVisitPurposeContainer.className = "mb-2";
 		this.formVisitPurposeContainer.innerHTML = `
-			<label for="visitPurpose" class="form-label">Цель визита</label>
+			<label for="visitPurpose" class="form-label label--required">Цель визита</label>
 		`;
 
 		//Modal form - visit purpose input
@@ -183,7 +185,7 @@ export default class VisitModal extends Modal {
 		//Modal form - full name
 		this.formFullNameContainer.className = "mb-2";
 		this.formFullNameContainer.innerHTML = `
-			<label for="fullName" class="form-label">ФИО</label>
+			<label for="fullName" class="form-label label--required">ФИО</label>
 		`;
 
 		//Modal form - full name input
@@ -201,7 +203,7 @@ export default class VisitModal extends Modal {
 		//Modal form - blood presure
 		this.formBloodPressureContainer.className = "col-4 mb-2";
 		this.formBloodPressureContainer.innerHTML = `
-			<label for="bloodPresure" class="form-label">Обычное давление</label>
+			<label for="bloodPresure" class="form-label label--required">Обычное давление</label>
 		`;
 
 		//Modal form - blood presure input
@@ -218,7 +220,7 @@ export default class VisitModal extends Modal {
 		//Modal form - body mass index
 		this.formBodyMassIndexContainer.className = "col-4 mb-2";
 		this.formBodyMassIndexContainer.innerHTML = `
-			<label for="bodyMassIndex" class="form-label">Индекс массы тела</label>
+			<label for="bodyMassIndex" class="form-label label--required">Индекс массы тела</label>
 		`;
 
 		//Modal form - body mass index input
@@ -248,7 +250,7 @@ export default class VisitModal extends Modal {
 		//Modal form - age
 		this.formAgeContainer.className = "col-2 mb-2";
 		this.formAgeContainer.innerHTML = `
-			<label for="age" class="form-label">Возраст</label>
+			<label for="age" class="form-label label--required">Возраст</label>
 		`;
 
 		//Modal form - age input
@@ -264,7 +266,7 @@ export default class VisitModal extends Modal {
 		//Modal form - last visit
 		this.formLastVisitContainer.className = "col-5 mb-2";
 		this.formLastVisitContainer.innerHTML = `
-			<label for="lastVisit" class="form-label">Дата последнего визита</label>
+			<label for="lastVisit" class="form-label label--required">Дата последнего визита</label>
 		`;
 
 		//Modal form - last visit input
@@ -278,14 +280,18 @@ export default class VisitModal extends Modal {
 			this.formLastVisitInput.value = this.lastVisit;
 		}
 
+		this.requiredFieldsHint.className = "form-text";
+		this.requiredFieldsHint.innerText = "* Обязательные поля для ввода данных";
+
 		//Appends
-		this.modalBody.append(this.form);
+		this.modalBody.append(this.form, this.requiredFieldsHint);
 		this.form.append(
 			this.formChooseDoctorContainer,
 			this.formChooseUrgencyContainer,
 			this.formVisitPurposeContainer,
 			this.formVisitDescriptionContainer,
-			this.formFullNameContainer);
+			this.formFullNameContainer,
+			this.additionalFieldsContainer);
 		this.formChooseDoctorContainer.append(this.formChooseDoctorSelect);
 		this.formChooseDoctorSelect.append(
 			this.formChooseDoctorOptionCardiologist,
@@ -358,7 +364,6 @@ export default class VisitModal extends Modal {
 			this.additionalFieldsContainer.innerHTML = "";
 			this.additionalFieldsContainer.append(this.formAgeContainer);
 		}
-		this.form.append(this.additionalFieldsContainer);
 	}
 
 	#getFormattedTodayDate = () => {
