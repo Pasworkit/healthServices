@@ -9,6 +9,8 @@ export default class VisitModal extends Modal {
 		this.formChooseDoctorSelect = document.createElement('select');
 		this.formChooseUrgencyContainer = document.createElement('div');
 		this.formChooseUrgencySelect = document.createElement('select');
+		this.formChooseStatusContainer = document.createElement('div');
+		this.formChooseStatusSelect = document.createElement('select');
 		this.formVisitPurposeContainer = document.createElement('div');
 		this.formVisitPurposeInput = document.createElement('input');
 		this.formVisitDescriptionContainer = document.createElement('div');
@@ -35,9 +37,10 @@ export default class VisitModal extends Modal {
 
 		//Data Edit
 		if (this.flag === "edit") {
-			const { fullName, doctor, title, description, urgency, id, cardiovascularDiseases, bloodPressure, bodyMassIndex, age, lastVisit } = cardObject;
+			const { fullName, doctor, status, title, description, urgency, id, cardiovascularDiseases, bloodPressure, bodyMassIndex, age, lastVisit } = cardObject;
 			this.fullName = fullName;
 			this.doctor = doctor;
+			this.status = status,
 			this.title = title;
 			this.description = description;
 			this.urgency = urgency;
@@ -140,6 +143,37 @@ export default class VisitModal extends Modal {
 				<option selected>Неотложная</option>
 			`;
 			}
+		}
+
+
+		//Modal form - choose status
+		this.formChooseStatusContainer.className = "col-5 offset-2 mb-2";
+		this.formChooseStatusContainer.innerHTML = `
+			<label for="statusChoose" class="form-label">
+			Статус визита
+			</label>
+		`;
+
+		//Modal form - choose status select
+		this.formChooseStatusSelect.id = "urgencyChoose";
+		this.formChooseStatusSelect.className = "form-select";
+		if (this.flag === "create") {
+			this.formChooseStatusSelect.innerHTML = `
+						<option selected>Открыт</option>
+						<option>Закрыт</option>
+					`;
+		} else if (this.flag === "edit") {
+			if (this.status === "Открыт") {
+				this.formChooseStatusSelect.innerHTML = `
+				<option selected>Открыт</option>
+				<option>Закрыт</option>
+			`;
+			} else if (this.status === "Закрыт") {
+				this.formChooseStatusSelect.innerHTML = `
+				<option>Открыт</option>
+				<option selected>Закрыт</option>
+				`;
+			} 
 		}
 
 		//Modal form - visit purpose
@@ -274,11 +308,13 @@ export default class VisitModal extends Modal {
 		this.form.append(
 			this.formChooseDoctorContainer,
 			this.formChooseUrgencyContainer,
+			this.formChooseStatusContainer,
 			this.formVisitPurposeContainer,
 			this.formVisitDescriptionContainer,
 			this.formFullNameContainer);
 		this.formChooseDoctorContainer.append(this.formChooseDoctorSelect);
 		this.formChooseUrgencyContainer.append(this.formChooseUrgencySelect);
+		this.formChooseStatusContainer.append(this.formChooseStatusSelect);
 		this.formVisitPurposeContainer.append(this.formVisitPurposeInput);
 		this.formVisitDescriptionContainer.append(this.formVisitDescriptionContent);
 		this.formFullNameContainer.append(this.formFullNameInput);
@@ -295,6 +331,7 @@ export default class VisitModal extends Modal {
 			title: this.formVisitPurposeInput.value,
 			description: this.formVisitDescriptionContent.value || null,
 			doctor: this.selectedDoctor,
+			status: this.formChooseStatusSelect.selectedOptions[0].value,
 			urgency: this.formChooseUrgencySelect.selectedOptions[0].value,
 			fullName: this.formFullNameInput.value,
 		};

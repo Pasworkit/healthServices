@@ -3,12 +3,13 @@ import VisitModal from "./VisitModal.js";
 import editVisit from "../api/editVisit.js";
 
 export default class Card {
-	constructor({ fullName, doctor, title, description, urgency, id, cardiovascularDiseases, bloodPressure, bodyMassIndex, age, lastVisit }) {
+	constructor({ fullName, doctor, status, title, description, urgency, id, cardiovascularDiseases, bloodPressure, bodyMassIndex, age, lastVisit }) {
 		this.fullName = fullName;
 		this.doctor = doctor;
 		this.title = title;
 		this.description = description;
 		this.urgency = urgency;
+		this.status = status;
 		this.id = id;
 		this.cardiovascularDiseases = cardiovascularDiseases;
 		this.bloodPressure = bloodPressure;
@@ -26,6 +27,7 @@ export default class Card {
 		this.cardTitle = document.createElement('p');
 		this.cardDescription = document.createElement('p');
 		this.cardUrgency = document.createElement('p');
+		this.cardStatus = document.createElement('p');
 		this.cardButtonAddInformation = document.createElement('button');
 		this.cardButtonHideInformation = document.createElement('button');
 		this.cardAdditionalInformation = document.createElement('div');
@@ -43,6 +45,7 @@ export default class Card {
 			title: this.title,
 			description: this.description,
 			urgency: this.urgency,
+			status: this.status,
 			id: this.id,
 			cardiovascularDiseases: this.cardiovascularDiseases,
 			bloodPressure: this.bloodPressure,
@@ -68,6 +71,8 @@ export default class Card {
 		this.cardDescription.innerHTML = `Описание визита: ${this.description}`;
 		this.cardUrgency.className = "card-text";
 		this.cardUrgency.innerHTML = `Срочность: ${this.urgency}`;
+		this.cardStatus.className = "card-text";
+		this.cardStatus.innerHTML = `Статус визита: ${this.status}`;
 		this.cardCardiovascularDiseases.className = "card-text";
 		this.cardCardiovascularDiseases.innerHTML = ` Перенесенные заболевания: ${this.cardiovascularDiseases}`;
 		this.cardBloodPressure.className = "card-text";
@@ -103,7 +108,8 @@ export default class Card {
 		this.containerAddInformation.append(
 			this.cardTitle,
 			this.cardDescription,
-			this.cardUrgency
+			this.cardUrgency,
+			this.cardStatus
 		)
 		if (this.doctor === "Кардиолог") {
 			this.containerAddInformation.append(

@@ -1,8 +1,8 @@
 import getCards from "../api/getCards.js";
 import Card from "../classes/card.js";
 
-export const showCards = async () => {
-    let cardsArray = await getCards();
+export const showCards = async (сardReceivingFunction) => {
+    let cardsArray = await сardReceivingFunction();
     const noCards = document.querySelector(".no-cards")
     if(cardsArray.length > 0){
         noCards.classList.add("d-none")
