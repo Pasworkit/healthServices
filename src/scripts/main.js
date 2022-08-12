@@ -29,8 +29,6 @@ new Filter (formContainer).render();
 	const cardsArray = await getCards();
 	showCards(cardsArray);
 })();
-})();
-
 
 const cardsContainer = document.querySelector('.container-cards');
 
@@ -44,4 +42,4 @@ cardsContainer.addEventListener('mousedown', (e) => {
 		card.addEventListener('drop', handleDrop);
 	});
 });
-});
+
