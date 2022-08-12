@@ -50,11 +50,17 @@ export default class LoginModal extends Modal {
         this.passwordInput.required = true;
         this.passwordInput.placeholder = "Password"
 
-        this.emailContainer.append(this.emailLabel, this.emailInput,this.passwordInput);
+        this.emailContainer.append(this.emailLabel, this.emailInput);
         this.passwordContainer.append(this.passwordLabel, this.passwordInput);
 
 
 
+        this.form.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.querySelector(".btn-registration").click();
+            }
+        });
 
         this.modalSubmitButton.addEventListener('click', () => {
             login(this.emailInput.value, this.passwordInput.value).then((r) => {
