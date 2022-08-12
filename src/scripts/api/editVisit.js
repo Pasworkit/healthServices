@@ -3,7 +3,7 @@ import Card from "../classes/card.js";
 
 const editVisit = async (visit, id) => {
     const { body } = visit;
-    body['id'] = id;
+
     try {
         const { status } = await instance.put(`/${id}`, body);
         if (status === 200) {

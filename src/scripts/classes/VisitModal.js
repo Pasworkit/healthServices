@@ -3,6 +3,7 @@ import Modal from "./Modal.js";
 export default class VisitModal extends Modal {
 	constructor(submitHandler, flag, cardObject) {
 		super();
+		// this.cardObject = cardObject;
 
 		this.form = document.createElement('form');
 		this.formChooseDoctorContainer = document.createElement('div');
@@ -145,9 +146,8 @@ export default class VisitModal extends Modal {
 			}
 		}
 
-
 		//Modal form - choose status
-		this.formChooseStatusContainer.className = "col-5 offset-2 mb-2";
+		this.formChooseStatusContainer.className = "col-5 offset-2 ms-0 mb-2";
 		this.formChooseStatusContainer.innerHTML = `
 			<label for="statusChoose" class="form-label">
 			Статус визита
@@ -173,7 +173,7 @@ export default class VisitModal extends Modal {
 				<option>Открыт</option>
 				<option selected>Закрыт</option>
 				`;
-			} 
+			}
 		}
 
 		//Modal form - visit purpose

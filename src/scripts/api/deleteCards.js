@@ -6,7 +6,7 @@ const deleteCards = async (id) => {
         if (status === 200) {
             document.querySelector(`.card-${id}`).remove();
         } else {
-            console.warn(status, data)
+            console.warn(status)
         }
     } catch (err) {
         console.error(err);
