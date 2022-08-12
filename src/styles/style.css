@@ -42,3 +42,8 @@ body {
 .cards__card--over {
 	border: 3px dotted rgba(43, 75, 219, 0.9) !important;
 }
+
+.label--required::after {
+	content: " *";
+	color: #8e959b;
+}
