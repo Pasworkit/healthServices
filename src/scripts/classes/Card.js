@@ -54,7 +54,8 @@ export default class Card {
 			lastVisit: this.lastVisit,
 		}
 
-		this.card.className = `cards__card card border border-3 m-2 p-3 mb-2 text-dark card-${this.id}`;
+		this.card.className = `cards__card card border border-3 m-2 p-3 mb-2 text-dark`;
+		this.card.id = `card-${this.id}`;
 		this.card.style.width = "21rem";
 		this.cardBody.className = "card-body p-0";
 		this.card.draggable = true; // make a card draggable
@@ -95,7 +96,7 @@ export default class Card {
 		this.cardAdditionalInformation.href = "#";
 		this.cardAdditionalInformation.innerHTML = "Редактировать";
 		this.card.append(this.cardBody);
-		
+
 		this.cardBody.append(
 			this.buttonClose,
 			this.cardFullName,

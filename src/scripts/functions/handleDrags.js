@@ -1,12 +1,12 @@
+import swapElements from "./swapElements.js";
+
 let draggedElement;
 
 export function handleDragStart(e) {
 	this.style.opacity = ".4";
 
 	draggedElement = this;
-
 	e.dataTransfer.effectAllowed = 'move';
-	e.dataTransfer.setData('text/html', this.innerHTML);
 }
 
 export function handleDragEnd(e) {
@@ -34,8 +34,7 @@ export function handleDrop(e) {
 	e.stopPropagation(); // stops the browser from redirecting.
 
 	if (draggedElement !== this) {
-		draggedElement.innerHTML = this.innerHTML;
-		this.innerHTML = e.dataTransfer.getData('text/html');
+		swapElements(draggedElement, this);
 	}
 
 	return false;
