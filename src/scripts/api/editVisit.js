@@ -23,8 +23,6 @@ const editVisit = async (visit, id, card) => {
             card.bodyMassIndex = bodyMassIndex;
             card.age = age;
             card.lastVisit = lastVisit;
-
-
             // document.querySelector(`.card-${id}`).remove();
             // new Card(body).render(document.querySelector(".container-cards"));
         }
