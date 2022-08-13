@@ -7,7 +7,6 @@ const showCards = async (cardsArray) => {
     if (cardsArray.length > 0) {
         noCards.classList.add("d-none")
     }
-    console.log(cardsArray);
     const containerCards = document.querySelector(".container-cards")
 
     cardsArray.forEach((el) => {
