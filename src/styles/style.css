@@ -7,8 +7,6 @@ body {
 	width: 100%;
 }
 
-
-
 .header {
 	display: flex;
 	justify-content: space-around;
@@ -29,9 +27,10 @@ body {
 }
 
 .cards {
-	display: flex;
-	flex-wrap: wrap;
-	align-content: center;
+    display: flex;
+    flex-wrap: wrap;
+	justify-content: center;
+    align-items: start;
 }
 
 .cards__card {
@@ -47,3 +46,12 @@ body {
 	content: " *";
 	color: #8e959b;
 }
+
+.container-filter {
+    display: flex;
+    justify-content: center;
+}
+
+.filter__button {
+    height: 38px;
+} 

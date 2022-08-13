@@ -1,16 +1,17 @@
-import getCards from "../api/getCards.js";
 import Card from "../classes/card.js";
 
-export const showCards = async () => {
-    let cardsArray = await getCards();
+const showCards = async (cardsArray) => {
+    const cardsContainer = document.querySelector('.container-cards');
+    cardsContainer.innerText = "";
     const noCards = document.querySelector(".no-cards")
-    if(cardsArray.length > 0){
+    if (cardsArray.length > 0) {
         noCards.classList.add("d-none")
-    } 
-    console.log(cardsArray);
+    }
     const containerCards = document.querySelector(".container-cards")
 
     cardsArray.forEach((el) => {
-            new Card(el).render(containerCards);
+        new Card(el).render(containerCards);
     });
 }
+
+export default showCards;

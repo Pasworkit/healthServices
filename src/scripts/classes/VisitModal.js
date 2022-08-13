@@ -17,7 +17,10 @@ export default class VisitModal extends Modal {
 		this.formChooseUrgencyOptionDefault = document.createElement('option');
 		this.formChooseUrgencyOptionPrioritized = document.createElement('option');
 		this.formChooseUrgencyOptionUrgent = document.createElement('option');
-
+		this.formChooseStatusContainer = document.createElement('div');
+		this.formChooseStatusSelect = document.createElement('select');
+		this.formChooseStatusOptionOpen = document.createElement('option');
+		this.formChooseStatusOptionDone = document.createElement('option');
 
 		this.formVisitPurposeContainer = document.createElement('div');
 		this.formVisitPurposeInput = document.createElement('input');
@@ -47,10 +50,11 @@ export default class VisitModal extends Modal {
 
 		//Data Edit
 		if (this.flag === "edit") {
-			const { fullName, doctor, title, description, urgency, id, cardiovascularDiseases, bloodPressure, bodyMassIndex, age, lastVisit } = cardObject;
+			const { fullName, doctor, status, title, description, urgency, id, cardiovascularDiseases, bloodPressure, bodyMassIndex, age, lastVisit } = cardObject;
 			this.fullName = fullName;
 			this.doctor = doctor;
-			this.title = title;
+			this.status = status,
+				this.title = title;
 			this.description = description;
 			this.urgency = urgency;
 			this.id = id;
@@ -89,14 +93,6 @@ export default class VisitModal extends Modal {
 
 		//Modal form - choose doctor options
 
-		// if (this.flag === "create") {
-		// 	this.formChooseDoctorSelect.innerHTML = `
-		// 				<option selected>Кардиолог</option>
-		// 				<option>Стоматолог</option>
-		// 				<option>Терапевт</option>
-		// 			`;
-		// }
-
 		this.formChooseDoctorOptionCardiologist.innerHTML = "Кардиолог";
 		this.formChooseDoctorOptionCardiologist.selected = true;
 		this.formChooseDoctorOptionDentist.innerHTML = "Стоматолог";
@@ -110,7 +106,6 @@ export default class VisitModal extends Modal {
 					break;
 				case "Терапевт": this.formChooseDoctorOptionTherapist.selected = true;
 					break;
-
 			}
 		}
 
@@ -132,14 +127,6 @@ export default class VisitModal extends Modal {
 		this.formChooseUrgencyOptionPrioritized.innerHTML = "Приоритетная";
 		this.formChooseUrgencyOptionUrgent.innerHTML = "Неотложная";
 
-		// if (this.flag === "create") {
-		// 	this.formChooseUrgencySelect.innerHTML = `
-		// 				<option selected>Обычная</option>
-		// 				<option>Приоритетная</option>
-		// 				<option>Неотложная</option>
-		// 			`;
-		// }
-
 		if (this.flag === "edit") {
 			switch (this.urgency) {
 				case "Обычная": this.formChooseUrgencyOptionDefault.selected = true;
@@ -147,6 +134,31 @@ export default class VisitModal extends Modal {
 				case "Приоритетная": this.formChooseUrgencyOptionPrioritized.selected = true;
 					break;
 				case "Неотложная": this.formChooseUrgencyOptionUrgent.selected = true;
+					break;
+			}
+		}
+
+		//Modal form - choose status
+		this.formChooseStatusContainer.className = "col-5 offset-2 ms-0 mb-2";
+		this.formChooseStatusContainer.innerHTML = `
+			<label for="statusChoose" class="form-label">
+			Статус визита
+			</label>
+		`;
+
+		//Modal form - choose status select
+		this.formChooseStatusSelect.id = "urgencyChoose";
+		this.formChooseStatusSelect.className = "form-select";
+
+		this.formChooseStatusOptionOpen.innerHTML = "Открыт";
+		this.formChooseStatusOptionOpen.selected = true;
+		this.formChooseStatusOptionDone.innerHTML = "Закрыт";
+
+		if (this.flag === "edit") {
+			switch (this.status) {
+				case "Открыт": this.formChooseStatusOptionOpen.selected = true;
+					break;
+				case "Закрыт": this.formChooseStatusOptionDone.selected = true;
 					break;
 			}
 		}
@@ -288,6 +300,7 @@ export default class VisitModal extends Modal {
 		this.form.append(
 			this.formChooseDoctorContainer,
 			this.formChooseUrgencyContainer,
+			this.formChooseStatusContainer,
 			this.formVisitPurposeContainer,
 			this.formVisitDescriptionContainer,
 			this.formFullNameContainer,
@@ -297,6 +310,11 @@ export default class VisitModal extends Modal {
 			this.formChooseDoctorOptionCardiologist,
 			this.formChooseDoctorOptionDentist,
 			this.formChooseDoctorOptionTherapist,
+		);
+		this.formChooseStatusContainer.append(this.formChooseStatusSelect);
+		this.formChooseStatusSelect.append(
+			this.formChooseStatusOptionOpen,
+			this.formChooseStatusOptionDone,
 		);
 		this.formChooseUrgencyContainer.append(this.formChooseUrgencySelect);
 		this.formChooseUrgencySelect.append(
@@ -320,6 +338,7 @@ export default class VisitModal extends Modal {
 			title: this.formVisitPurposeInput.value,
 			description: this.formVisitDescriptionContent.value,
 			doctor: this.selectedDoctor,
+			status: this.formChooseStatusSelect.selectedOptions[0].value,
 			urgency: this.formChooseUrgencySelect.selectedOptions[0].value,
 			fullName: this.formFullNameInput.value,
 		};
