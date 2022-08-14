@@ -4,7 +4,7 @@ const deleteCards = async (id) => {
     try {
         const { status } = await instance.delete(`/${id}`);
         if (status === 200) {
-            document.querySelector(`.card-${id}`).remove();
+            document.querySelector(`#card-${id}`).remove();
         } else {
             console.warn(status)
         }

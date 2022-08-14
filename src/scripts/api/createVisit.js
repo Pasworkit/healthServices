@@ -7,9 +7,7 @@ const createVisit = async (visit) => {
 		const { status, data } = await instance.post('', body);
 		if (status === 200) {
 			visit.closeModal();
-			const {id} = data;
-			body['id'] = id;
-			new Card(body).render(document.querySelector(".container-cards"));
+			new Card(data).render(document.querySelector(".container-cards"));
 		}
 	}
 	catch (err) {

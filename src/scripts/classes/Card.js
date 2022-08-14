@@ -145,7 +145,7 @@ export default class Card {
 		this.buttonClose.addEventListener('click', () => deleteCards(this.id));
 
 		this.cardAdditionalInformation.addEventListener('click', () => {
-			new VisitModal(editVisit, "edit", this.cardElements).render();
+			new VisitModal(editVisit, "edit", this.cardElements, this).render();
 		})
 
 	}

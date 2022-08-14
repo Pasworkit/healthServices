@@ -1,9 +1,9 @@
 import Modal from "./Modal.js";
 
 export default class VisitModal extends Modal {
-	constructor(submitHandler, flag, cardObject) {
+	constructor(submitHandler, flag, cardObject, card) {
 		super();
-
+		this.card = card;
 		this.form = document.createElement('form');
 
 		this.formChooseDoctorContainer = document.createElement('div');
@@ -409,7 +409,7 @@ export default class VisitModal extends Modal {
 							<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 							<span>Загрузка...</span>
 						`;
-				this.submitHandler(this, this.id);
+				this.submitHandler(this, this.id, this.card);
 			}
 		});
 	}
