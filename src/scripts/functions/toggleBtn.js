@@ -1,3 +1,4 @@
+import {renderMainContent} from "./renderMainContent.js";
 
 
 export function toggleBtn(){
@@ -5,4 +6,5 @@ export function toggleBtn(){
     const btnCreateVisit = document.querySelector('.header__btn-createVisit');
     btnLogin.classList.add('none');
     btnCreateVisit.classList.remove('none');
+    renderMainContent();
 }
