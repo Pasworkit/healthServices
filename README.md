@@ -20,7 +20,7 @@ NPM, Gulp;
 
 Figma, Postman;
 
-Axios;
+Axios, Bootstrap;
 
   
 
