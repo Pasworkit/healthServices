@@ -1,5 +1,6 @@
 import instance from "./instance.js"
 
+
 const deleteCards = async (id) => {
     try {
         const { status } = await instance.delete(`/${id}`);

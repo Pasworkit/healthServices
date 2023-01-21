@@ -1,6 +1,7 @@
 import instance from "./instance.js";
 import Card from "../classes/card.js";
 
+
 const createVisit = async (visit) => {
 	const { body } = visit;
 	try {
